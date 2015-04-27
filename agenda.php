@@ -1,25 +1,41 @@
 <?php
-// Conectando, seleccionando la base de datos
+/*// Conectando, seleccionando la base de datos
 $link = mysql_connect('localhost', 'root', '')
     or die('No se pudo conectar: ' . mysql_error());
 echo 'Connected successfully';
-mysql_select_db('contactos') or die('No se pudo seleccionar la base de datos');
+mysql_select_db('contactos') or die('No se pudo seleccionar la base de datos');*/
+
+
 
 // Realizar una consulta MySQL
+
+//$result = mysql_query($query) or die('Consulta fallida: ' . mysql_error());
+
+
+
+require_once('core/Database.php');
+$db = new Database();
+$db->connect();
 $query = 'SELECT * FROM agenda';
-$result = mysql_query($query) or die('Consulta fallida: ' . mysql_error());
+$db->sql($query);
+$result = $db->getResult();
+
+// Cerrar la conexión
+$db->disconnect();
 
 
 
 ?>
 
-<a href="insertar.php">Insertar contacto</a></br></br>
 
 
 
-
+<h1><a href="insertar.php">Insertar contacto</a></h1>
 
 <table>
+
+
+
 	<tbody>
 	
 	<?php while ($linea = mysql_fetch_array($result, MYSQL_ASSOC)) { ?>
@@ -43,10 +59,5 @@ $result = mysql_query($query) or die('Consulta fallida: ' . mysql_error());
 <?php 
 
 
-// Liberar resultados
-mysql_free_result($result);
-
-// Cerrar la conexión
-mysql_close($link);
 
 ?>

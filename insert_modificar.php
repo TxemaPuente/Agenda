@@ -26,7 +26,7 @@ $result = mysql_query($query) or die('Consulta fallida: ' . mysql_error());
 
 
 
-// Cerrar la conexiÃ³n
+// Cerrar la conexión
 mysql_close($link);
 
 
