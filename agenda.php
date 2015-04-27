@@ -1,28 +1,8 @@
 <?php
-/*// Conectando, seleccionando la base de datos
-$link = mysql_connect('localhost', 'root', '')
-    or die('No se pudo conectar: ' . mysql_error());
-echo 'Connected successfully';
-mysql_select_db('contactos') or die('No se pudo seleccionar la base de datos');*/
 
+require_once 'modelo/ModeloAgenda.php';
 
-
-// Realizar una consulta MySQL
-
-//$result = mysql_query($query) or die('Consulta fallida: ' . mysql_error());
-
-
-
-require_once('core/Database.php');
-$db = new Database();
-$db->connect();
-$query = 'SELECT * FROM agenda';
-$db->sql($query);
-$result = $db->getResult();
-
-// Cerrar la conexión
-$db->disconnect();
-
+$result = getContactos();
 
 
 ?>
@@ -38,26 +18,23 @@ $db->disconnect();
 
 	<tbody>
 	
-	<?php while ($linea = mysql_fetch_array($result, MYSQL_ASSOC)) { ?>
+	<?php foreach ($result as $contacto) { ?>
+    
+
 	
 	<tr>
-		<td><?php echo $linea['id'];?></td>
-		<td><?php echo $linea['nombre'];?></td>
-		<td><?php echo $linea['telefono'];?></td>
+		<td><?php echo $contacto['id'];?></td>
+		<td><?php echo $contacto['nombre'];?></td>
+		<td><?php echo $contacto['telefono'];?></td>
 		<td>
-			<a href="delete.php?id=<?php echo $linea['id'];?>" >borrar</a>
+			<a href="delete.php?id=<?php echo $contacto['id'];?>" >borrar</a>
 		</td>
 		
 		<td>
-			<a href="modificar.php?id=<?php echo $linea['id'];?>">Modificar</a>
+			<a href="modificar.php?id=<?php echo $contacto['id'];?>">Modificar</a>
 		</td>
 	</tr> 
 	
-	<?php } ?>
+	<?php } //Final del foreach  ?>
 </table>
 
-<?php 
-
-
-
-?>
